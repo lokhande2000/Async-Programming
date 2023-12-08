@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        height: 100vh;
+        width: 100%;
+        background-color: #111111ae;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .stopwatch {
+        width: 60%;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 50px;
+        padding: 100px;
+        border-radius: 20px;
+        position: relative;
+        background: url("https://i.pinimg.com/236x/8f/b8/c1/8fb8c15f3a17290f7317a16ef965224d.jpg")
+          no-repeat center center;
+        background-size: cover;
+        filter: brightness(90%);
+      }
+
+      .container {
+        width: 70%;
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+      }
+      .container span {
+        width: 150px;
+        color: rgba(255, 0, 0, 0.837);
+        font-size: 3rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .buttons {
+        width: 80%;
+        margin: auto;
+        text-align: center;
+        position: relative;
+      }
+      .buttons button {
+        margin-left: 20px;
+        padding: 2px 12px;
+        font-size: 1.5rem;
+        font-weight: 700;
+        border-radius: 5px;
+        background-color: burlywood;
+      }
+      .buttons button:hover {
+        background-color: dimgrey;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stopwatch">
+      <div class="container">
+        <span class="hovers">0h</span>
+        <span class="minutes">0m</span>
+        <span class="seconds">0s</span>
+        <span class="miliseconds">00</span>
+      </div>
+
+      <div class="buttons">
+        <button onclick="start()">start</button>
+        <button onclick="stop()">stop</button>
+        <button onclick="reset()">restart</button>
+      </div>
+    </div>
+    <script>
+      let th = document.querySelector(".hovers");
+      let tm = document.querySelector(".minutes");
+      let ts = document.querySelector(".seconds");
+      let tms = document.querySelector(".miliseconds");
+
+      let timer;
+      let milisecond = 0;
+      let second = 0;
+      let minute = 0;
+      let hover = 0;
+      let day = 0;
+
+      function start() {
+        timer = setInterval(stopWatch, 10);
+      }
+
+      function stop() {
+        clearInterval(timer);
+      }
+
+      function reset() {
+        clearInterval(timer);
+        second = 0;
+        th.textContent = "0h";
+        tm.textContent = "0m";
+        tms.textContent = "00";
+        ts.textContent = "0s";
+      }
+
+      function stopWatch() {
+        second = Math.floor(milisecond / 100);
+        let remanningmiliseconds = Math.floor(milisecond % 100);
+        milisecond++;
+
+        minute = Math.floor(second / 60);
+        let remanningseconds = Math.floor(second % 60);
+        second++;
+
+        hover = Math.floor(minute / 60);
+        let remanningminuts = Math.floor(minute % 60);
+        minute++;
+
+        th.textContent = `${hover}h`;
+        tm.textContent = `${remanningminuts}m`;
+        ts.textContent = `${remanningseconds}s`;
+        tms.textContent = `${remanningmiliseconds}`;
+      }
+    </script>
+  </body>
+</html>
